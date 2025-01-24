@@ -1,6 +1,6 @@
 module github.com/ngyewch/pac194x5x
 
-go 1.23
+go 1.22.6
 
 require (
 	github.com/urfave/cli/v2 v2.27.5
