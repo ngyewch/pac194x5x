@@ -1,11 +1,11 @@
 module github.com/ngyewch/pac194x5x
 
-go 1.23.3
+go 1.23
 
 require (
 	github.com/urfave/cli/v2 v2.27.5
 	periph.io/x/conn/v3 v3.7.1
-	periph.io/x/host/v3 v3.8.2
+	periph.io/x/host/v3 v3.8.3
 )
 
 require (
