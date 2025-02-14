@@ -260,7 +260,7 @@ func (dev *Dev) GetVBusAvg(channelNo int) (float64, error) {
 		return 0, err
 	}
 
-	registers := []*CacheRegister[uint16]{VBus1CacheRegister, VBus2CacheRegister, VBus3CacheRegister, VBus4CacheRegister}
+	registers := []*CacheRegister[uint16]{VBus1AvgCacheRegister, VBus2AvgCacheRegister, VBus3AvgCacheRegister, VBus4AvgCacheRegister}
 	v, err := registers[channelNo].Read(dev)
 	if err != nil {
 		return 0, err
