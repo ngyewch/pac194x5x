@@ -4,8 +4,9 @@ import (
 	"encoding/binary"
 	"fmt"
 	"math"
-	"periph.io/x/conn/v3/i2c"
 	"time"
+
+	"periph.io/x/conn/v3/i2c"
 )
 
 const (

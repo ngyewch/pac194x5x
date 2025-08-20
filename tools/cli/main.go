@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/urfave/cli/v2"
 	"log"
 	"os"
 	"runtime/debug"
+
+	"github.com/urfave/cli/v2"
 )
 
 var (
