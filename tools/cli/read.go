@@ -1,26 +1,32 @@
 package main
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/ngyewch/pac194x5x"
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 	"periph.io/x/conn/v3/i2c/i2creg"
 	"periph.io/x/host/v3"
 )
 
-func doRead(cCtx *cli.Context) error {
+func doRead(ctx context.Context, cmd *cli.Command) error {
+	i2cBus := cmd.String(i2cBusFlag.Name)
+	i2cAddr := cmd.Uint(i2cAddrFlag.Name)
+	voltageRatio := cmd.Float64Slice(voltageRatioFlag.Name)
+	rSense := cmd.Float64Slice(rSenseFlag.Name)
+
 	_, err := host.Init()
 	if err != nil {
 		return err
 	}
 
-	b, err := i2creg.Open(i2cBusFlag.Get(cCtx))
+	b, err := i2creg.Open(i2cBus)
 	if err != nil {
 		return err
 	}
 
-	dev, err := pac194x5x.NewI2C(b, uint16(i2cAddrFlag.Get(cCtx)), voltageRatioFlag.Get(cCtx), rSenseFlag.Get(cCtx))
+	dev, err := pac194x5x.NewI2C(b, uint16(i2cAddr), voltageRatio, rSense)
 	if err != nil {
 		return err
 	}

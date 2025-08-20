@@ -1,11 +1,12 @@
 package main
 
 import (
+	"context"
 	"log"
 	"os"
 	"runtime/debug"
 
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 )
 
 var (
@@ -16,28 +17,28 @@ var (
 		Name:     "i2c-bus",
 		Usage:    "I2C bus",
 		Required: true,
-		EnvVars:  []string{"I2C_BUS"},
+		Sources:  cli.EnvVars("I2C_BUS"),
 	}
 	i2cAddrFlag = &cli.UintFlag{
 		Name:     "i2c-addr",
 		Usage:    "I2C addr",
 		Required: true,
-		EnvVars:  []string{"I2C_ADDR"},
+		Sources:  cli.EnvVars("I2C_ADDR"),
 	}
 	voltageRatioFlag = &cli.Float64SliceFlag{
 		Name:    "voltage-ratio",
 		Usage:   "voltage ratio",
-		Value:   cli.NewFloat64Slice(1, 1, 1, 1),
-		EnvVars: []string{"VOLTAGE_RATIO"},
+		Value:   []float64{1, 1, 1, 1},
+		Sources: cli.EnvVars("VOLTAGE_RATIO"),
 	}
 	rSenseFlag = &cli.Float64SliceFlag{
 		Name:    "rsense",
 		Usage:   "RSense",
-		Value:   cli.NewFloat64Slice(0.004, 0.004, 0.004, 0.004),
-		EnvVars: []string{"RSENSE"},
+		Value:   []float64{0.004, 0.004, 0.004, 0.004},
+		Sources: cli.EnvVars("RSENSE"),
 	}
 
-	app = &cli.App{
+	app = &cli.Command{
 		Name:  "pac194x5x",
 		Usage: "PAC194x/5x CLI",
 		Flags: []cli.Flag{
@@ -62,7 +63,7 @@ func main() {
 		app.Version = buildInfo.Main.Version
 	}
 
-	err := app.Run(os.Args)
+	err := app.Run(context.Background(), os.Args)
 	if err != nil {
 		log.Fatal(err)
 	}
